@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +44,8 @@ public class TessOcrController {
         return "";
     }
 
+
+
     private BufferedImage createImageFromBytes(byte[] imageData) {
         ByteArrayInputStream bais = new ByteArrayInputStream(imageData);
         try {
@@ -51,5 +54,9 @@ public class TessOcrController {
             throw new RuntimeException(e);
         }
     }
-    
+
+    private Boolean extensionCheck(MultipartFile file) {
+        String fileExtention = FilenameUtils.getExtension(file.getOriginalFilename());
+        return true;
+    }    
 }
