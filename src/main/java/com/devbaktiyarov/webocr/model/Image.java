@@ -3,34 +3,31 @@ package com.devbaktiyarov.webocr.model;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Image {
-    private MultipartFile[] images;
-
-
+    private String name;
+    private String text;
     
-
-    public Image(MultipartFile[] images) {
-        this.images = images;
+    public Image(String name, String text) {
+        this.name = name;
+        this.text = text;
     }
 
-
-
-
-    public MultipartFile[] getImages() {
-        return images;
+    public String getName() {
+        return name;
     }
 
-
-
-
-    public void setImages(MultipartFile[] images) {
-        this.images = images;
+    public void setName(String name) {
+        this.name = name;
     }
 
-
-
-
-    public Image() {
+    public String getText() {
+        return text;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+    
+    
+    
   
   }

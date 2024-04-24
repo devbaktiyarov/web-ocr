@@ -28,15 +28,13 @@ public class WebContoller {
     }
 
     @GetMapping()
-    public String getMethodName(Model model) {
-        model.addAttribute("file", new Image());
+    public String getMethodName() {
         return "page";
     }
 
     @PostMapping(path = "/convert", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    private String convertImage(@RequestParam("file") MultipartFile[] files, Model model) throws TesseractException, IOException {
-        model.addAttribute("result", convertService.converImageToText(files));
-        model.addAttribute("image", "");
+    private String convertImage(@RequestParam("files") MultipartFile[] files, @RequestParam("lang") String language, Model model) {
+        model.addAttribute("images", convertService.converImageToText(files, language));
         return "result";
     }
     

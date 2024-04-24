@@ -10,14 +10,15 @@
     <div class="container bg-white mt-2 p-2">
         <div class="row">
             <form class="form-inline" th:action="@{/convert}"  method="post" enctype="multipart/form-data">
-                <!-- <div class="form-group mb-3">
-                    <label for="lang">Language</label>
-                    <input type="text" class="form-control">
-                </div> -->
                 <div class="input-group mb-3">
-                    <label class="input-group-text" for="file">Upload</label>
-                    <input id="file-input" name="file" type="file" class="form-control" multiple> 
+                    <input id="file-input" name="files" type="file" class="form-control" accept="image/png, image/jpeg, image/jpg" multiple> 
                 </div>
+                <select class="form-select mb-3" aria-label="Language Select" name="lang">
+                    <option selected>Select language</option>
+                    <option value="eng">English</option>
+                    <option value="fra">French</option>
+                    <option value="chi-sim">Chinese</option>
+                  </select>
                 <div class="col-md-9 mb-3">
                     <div class="row gy-3" id="file-output">
                     </div>
@@ -26,13 +27,9 @@
                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
                   </div>
                 <div class="d-grid">
-                    <button id="button-send" type="submit" class="btn btn-primary">Send</button>
+                    <button id="submit-button" type="submit" class="btn btn-primary" disabled>Send</button>
                 </div>
             </form>
-
-            <div>
-                <h3>[[${result}]]</h3>
-            </div>
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -41,12 +38,12 @@
     <script type="text/javascript"> 
                 var input = document.querySelector("#file-input");
                 var output = document.querySelector("#file-output");
-                var button = document.querySelector("#button-send");
+                var submitButton = document.querySelector("#submit-button");
                 var progressBar = document.querySelector("#progress-status");
 
                 let imagesArray = [];
 
-                button.addEventListener("click", showProgress);
+                submitButton.addEventListener("click", showProgress);
 
                 input.addEventListener("change", () => {
                     const files = input.files;
@@ -55,6 +52,12 @@
                         imagesArray.push(files[i])
                     }
                     displayImages();  
+
+                    if(imagesArray.length != 0) {
+                        submitButton.disabled = false;
+                    }
+
+
                     imagesArray = []; 
                 });
 

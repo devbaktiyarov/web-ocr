@@ -3,6 +3,8 @@ package com.devbaktiyarov.webocr.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.devbaktiyarov.webocr.model.Image;
+
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 
@@ -10,29 +12,29 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @Service
 public class TessOcrServiceImpl implements TessOcrService{
     
-    private final Tesseract tesseract;
-
-    
-    public TessOcrServiceImpl(Tesseract tesseract) {
-        this.tesseract = tesseract;
-    }
-
-
     @Override
-    public String converImageToText(MultipartFile[] files) {
-        String result = "";
+    public ArrayList<Image> converImageToText(MultipartFile[] files, String language) {
+        
+        Tesseract tesseract = new Tesseract();
+		tesseract.setDatapath("src/main/resources/tessdata");
+
+        ArrayList<Image> images = new ArrayList<>();
+        tesseract.setLanguage(language);
         for (MultipartFile multipartFile : files) {
             try {
-                result += tesseract.doOCR(createImageFromBytes(multipartFile.getBytes()));
+                String result = tesseract.doOCR(createImageFromBytes(multipartFile.getBytes()));
+                Image img = new Image(multipartFile.getOriginalFilename(), result);
+                images.add(img);
             } catch (TesseractException | IOException e) {
                 e.printStackTrace();
             }
         }
-        return result;
+        return images;
     }
 
     private BufferedImage createImageFromBytes(byte[] imageData) {

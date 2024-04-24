@@ -14,12 +14,11 @@ public class WebOcrApplication {
 	}
 
 
-	@Bean
-	public Tesseract tesseract() {
-		Tesseract tesseract = new Tesseract();
-		tesseract.setDatapath("src/main/resources/tessdata");
-		tesseract.setLanguage("eng");
-		return tesseract;
-	}
+	// @Bean
+	// public Tesseract tesseract() {
+	// 	Tesseract tesseract = new Tesseract();
+	// 	tesseract.setDatapath("src/main/resources/tessdata");
+	// 	return tesseract;
+	// }
 
 }
