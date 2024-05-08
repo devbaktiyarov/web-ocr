@@ -3,48 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+    <title>Result</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script defer th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </head>
-<body>
-    <div class="container">
-        <div class="card mb-3" style="max-width: 740px;" th:each="image : ${images}">    
+<body style="background-color: #dbdfeac0;">
+    <header th:insert="~{fragments/navigation}"></header>
+    <div class="container" style="margin-top: 65px;">
+        <a class="link-primary" th:href="@{/}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+              </svg>
+            <span>Home</span>
+        </a>
+        <div class="card mb-3" th:each="image : ${images}">    
             <div class="row justify-content-center no-gutters">
-                <div class="col-md-4 align-self-center">
-                    <img th:src="@{./images/screenshot.png}" class="card-img" alt="...">
+                <div class="col-md-5 align-self-center">
+                    <img th:src="${image.photo}" class="card-img rounded" alt="...">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <div class="card-body">
                         <h5 class="card-title" th:text="${image.name}">title</h5>
-                        <p class="card-text" th:text="${image.text}" style="max-height: 200px; overflow-y:auto;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio unde beatae maiores suscipit harum aliquid corporis inventore similique, sed temporibus doloremque labore quia eligendi iusto qui nobis aspernatur ipsa reiciendis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam eaque fuga consequatur dolores amet facere expedita! Vitae consequatur dolores dicta, laboriosam quia sequi quos, nisi aperiam, voluptates debitis nesciunt hic! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut odio fuga iste quidem quam similique aperiam, provident laborum dolore. Nesciunt ipsum corporis beatae inventore optio quae aliquam ea, quod totam? Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium praesentium alias qui illo itaque, ipsa veniam numquam, optio minus sint, tenetur deleniti dignissimos vel amet beatae asperiores. Laboriosam, perferendis ipsa!</p>
-                        <button id="copy-button" class="btn btn-primary">Copy</button>
+                        <p class="card-text fs-6" th:text="${image.text}" style="max-height: 200px; overflow-y:auto;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eos laudantium deserunt a. Consectetur id fuga magni, aperiam ullam unde iusto suscipit saepe aut! Perferendis exercitationem, laboriosam nisi iure repudiandae adipisci. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam enim ducimus rerum amet porro dolore Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem assumenda numquam quibusdam atque provident aperiam ducimus adipisci, aliquid dignissimos quas molestiae excepturi fugiat illum porro in quaerat? Nulla, repudiandae veritatis! magnam molestias pariatur magni animi? Ullam eum nemo labore numquam reiciendis expedita, deserunt quo eaque.</p>
+                        <!-- <button id="copy-button" class="btn btn-primary">Copy</button> -->
                     </div>
                 </div>
             </div>
         </div>
-        <a class="btn btn-primary" role="button" th:href="@{/}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
-                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+        <a class="link-primary" th:href="@{/}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
               </svg>
-            <span>Go home</span>
+            <span>Home</span>
         </a>
     </div>
-    <script type="text/javascript">
-        var copyButtons = document.querySelectorAll("#copy-button");
-        var copyTextDetails = document.querySelectorAll(".card-text");
-
-        copyButtons.forEach(function(copyButton, index){
-            copyButton.addEventListener("click", () => {
-                // Не поддерживается без HTTTPS
-                navigator.clipboard.writeText(copyTextDetails[index].innerText);
-                alert("Text copied")
-            });
-        });
-
-
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-</body>
+    <script type="text/javascript" th:src="@{/js/result.js}"></script>
+  </body>
 </html>

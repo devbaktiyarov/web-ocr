@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="../static/css/main.css" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script defer th:src="@{/js/bootstrap.bundle.min.js}"></script>
+   </head>
+<body>
+    <header th:insert="~{fragments/navigation}"></header>
+    <section id="hero">
+        <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-xl-7 col-lg-9 text-center">
+                <h1>Transform image to text</h1>
+                <h2>Optical character recognition</h2>
+              </div>
+            </div>
+        </div>
+        <div id="ocr">
+            <div class="container p-2">
+                    <div class="row justify-content-center">
+                        <div class="col-8">
+                            <form class="form-inline" th:action="@{/convert}"  method="post" enctype="multipart/form-data">
+                                <div id="drop-area" class="input-group mt-3">
+                                    <input id="file-input" name="files" type="file" class="form-control" accept="image/png, image/jpeg, image/jpg" multiple hidden  >                                     
+                                    <div class="img-view text-center">
+                                        <img src="../static/images/upload.png" th:src="@{images/upload.png}" alt="">
+                                        <p class="fs-5">Drag & Drop <br> or <span id="browse-button" class="text-primary" role="button">click </span>to upload image</p>
+                                        <p class="fw-light">Upload .png .jpg .jpeg</p>
+                                    </div>
+                                </div>   
+                                <label for="language">Choose language</label>
+                                <select id="language" class="form-select mb-3" aria-label="Language Select" name="lang">
+                                    <option value="eng" selected>English</option>
+                                    <option value="kir">Kyrgyz</option>
+                                    <option value="chi-sim">Chinese</option>
+                                </select>
+                                <div id="image-list" class="col-md-9 mb-3">
+                                    <div class="row gy-3" id="file-output"></div>
+                                </div>
+                                <div class="d-grid">
+                                    <button id="submit-button" type="submit" class="btn btn-primary" disabled>Convert</button>
+                                </div>
+                            </form>
+                        </div>
+                      
+                    </div>
+                </div>
+            </div>
+           
+    </section>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
+</body>
+</html>

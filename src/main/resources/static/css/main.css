@@ -1,0 +1,75 @@
+body {
+  height: 2000px;
+}
+
+
+
+#hero {
+  background-color: #dbdfeac0;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin-top: 55px;
+}   
+
+
+#hero h1 {
+    margin: 0;
+    font-size: 46 px;
+    font-weight: 700;
+    line-height: 72px;
+}
+  
+#hero h2 {
+  margin: 10px 0 0 0;
+  font-size: 22px;
+}  
+
+#drop-area {
+  /* position: relative; */
+  height: 300px;
+  border: 3px dashed hsl(219, 82%, 93%);
+  background-color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 10px auto;
+} 
+
+#drop-area.active {
+  border: 2px solid #79a4f2;
+}
+
+
+/* #image-list {
+  max-height: 110px;
+  overflow-y: auto;
+} */
+
+/* input[type=file]::file-selector-button {
+  visibility: hidden;
+}
+
+input[type='file'] {
+  color: transparent !important;
+} */ 
+
+/* .img-view {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
+
+.img-view img {
+  width: 80px;
+}
+
+/* #file-input {
+  height: 300px;
+  border: 1px dashed rgba(120, 16, 16, 0.4);
+} */
