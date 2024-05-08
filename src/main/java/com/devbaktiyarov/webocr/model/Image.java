@@ -1,14 +1,14 @@
 package com.devbaktiyarov.webocr.model;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class Image {
     private String name;
     private String text;
+    private String photo;
     
-    public Image(String name, String text) {
+    public Image(String name, String text, String photo) {
         this.name = name;
         this.text = text;
+        this.photo = photo;
     }
 
     public String getName() {
@@ -26,8 +26,14 @@ public class Image {
     public void setText(String text) {
         this.text = text;
     }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
     
-    
-    
-  
-  }
+
+}

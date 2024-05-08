@@ -34,3 +34,4 @@ build/
 
 ### VS Code ###
 .vscode/
+src/main/java/com/devbaktiyarov/webocr/dto/ImageDto.java
