@@ -5,7 +5,6 @@ body {
 
 
 #hero {
-  background-color: #dbdfeac0;
   width: 100%;
   position: absolute;
   bottom: 0;
@@ -29,9 +28,8 @@ body {
 }  
 
 #drop-area {
-  /* position: relative; */
   height: 300px;
-  border: 3px dashed hsl(219, 82%, 93%);
+  border: 3px dashed hsla(240, 1%, 30%, 0.521);
   background-color: #FFF;
   display: flex;
   align-items: center;

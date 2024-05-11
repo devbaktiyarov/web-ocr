@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.devbaktiyarov.webocr.model.Image;
 import com.lowagie.text.*;
+import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfWriter;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,6 +25,8 @@ public class TessOcrServiceImpl implements TessOcrService {
 
     @Value("${tesseract.datapath}")
     private String datapath;
+
+    public static final String FONT = "src/main/resources/static/fonts/Helvetica.ttf";
 
     @Override
     public ArrayList<Image> converImageToText(MultipartFile[] files, String language) {
@@ -63,7 +66,7 @@ public class TessOcrServiceImpl implements TessOcrService {
         Tesseract tesseract = new Tesseract();
         tesseract.setDatapath(datapath);
         tesseract.setLanguage(language);
-      
+
         Document document = new Document(PageSize.A4);
         try {
             PdfWriter.getInstance(document, response.getOutputStream());
@@ -72,27 +75,24 @@ public class TessOcrServiceImpl implements TessOcrService {
         }
 
         document.open();
-        Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-        fontTitle.setSize(18);
 
-        Paragraph paragraph = new Paragraph("This is a title.", fontTitle);
-        paragraph.setAlignment(Paragraph.ALIGN_CENTER);
-        
-        Font fontParagraph = FontFactory.getFont(FontFactory.HELVETICA);
-        fontParagraph.setSize(12);
-
-        for (MultipartFile multipartFile : files) {
-            Paragraph paragraph2;
+        Font fontParagraph = FontFactory.getFont(FONT, BaseFont.IDENTITY_H, true);
+        fontParagraph.setSize(10);
+        for (MultipartFile file : files) {
             try {
-                paragraph2 = new Paragraph(tesseract.doOCR(createImageFromBytes(multipartFile.getBytes())), fontParagraph);
-                paragraph2.setAlignment(Paragraph.ALIGN_LEFT);
-                document.add(paragraph2);
-            } catch (TesseractException | IOException | DocumentException e) {
+                String result = tesseract.doOCR(createImageFromBytes(file.getBytes()));
+                Paragraph paragraph = new Paragraph(result, fontParagraph);
+                paragraph.setAlignment(Paragraph.ALIGN_CENTER);
+                com.lowagie.text.Image image = com.lowagie.text.Image.getInstance(file.getBytes());
+                image.scaleAbsolute(250, 100);
+                image.setAlignment(com.lowagie.text.Image.ALIGN_CENTER);
+                document.add(image);
+                document.add(paragraph);
+            } catch (TesseractException | IOException e) {
                 e.printStackTrace();
             }
         }
-
         document.close();
-        }
+    }
 
 }

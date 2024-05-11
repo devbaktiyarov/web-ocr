@@ -45,4 +45,28 @@ public class WebContoller {
         return "result";
     }
 
+    @GetMapping("/pdf-converter")
+    public String getMethodName() {
+        return "pdf-converter";
+    }
+    
+
+    @PostMapping("/convert-to-pdf")
+    public void getMethodName(HttpServletResponse response, 
+            @RequestParam MultipartFile[] files, 
+            @RequestParam String lang) {
+
+        response.setIntHeader("Refresh", 5); 
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=pdf_ars" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+        convertService.converImageToPdf(response, files, lang);  
+              
+        
+    }
+    
+
 }
