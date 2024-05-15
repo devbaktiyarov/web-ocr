@@ -3,6 +3,8 @@ var output = document.querySelector("#file-output");
 var submitButton = document.querySelector("#submit-button");
 var progressBar = document.querySelectorAll("#progress-status");
 
+var imageList = document.querySelector("#image-list");
+
 var browseButton = document.querySelector("#browse-button");
 var dropArea = document.querySelector("#drop-area");
 
@@ -75,11 +77,16 @@ input.addEventListener("change", () => {
 function displayImages() {
     let images = ""
     imagesArray.forEach((image, index) => {
-        images += `<div class="col-4">
-                    <img src="${URL.createObjectURL(image)}" class="img-fluid border" alt="image">
+        images += `<div class="">
+                    <img src="${URL.createObjectURL(image)}" class="img-fluid border mb-2" alt="image">
                 </div>`
     })
+
+    if(screen.width )
+    dropArea.style.width="70%"
+    imageList.style.width="25%"
     output.innerHTML = images;
+    imageList.removeAttribute("hidden");
 }
 
 function showProgress() {

@@ -13,13 +13,13 @@
     <div layout:fragment="content">
         <div class="container mt-5">
             <div class="row justify-content-center">
-            <div class="col-xl-7 col-lg-9 text-center">
-                <h1>Transform image to text</h1>
-                <p>Transform your image text into a beautifully crafted Microsoft Word document</p>
-            </div>
+                <div class="col-xl-7 col-lg-9 text-center">
+                    <h1>Transform image to text</h1>
+                    <p>Transform your image text into a beautifully crafted Microsoft Word document</p>
+                </div>
             </div>
         </div>
-        <div th:replace="~{fragments/converter(link='/convert-to-pdf')}"></div>
+        <div th:replace="~{fragments/converter(link='/convert-to-word')}"></div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
         <script type="text/javascript" th:src="@{/js/main.js}"></script>
     </div>

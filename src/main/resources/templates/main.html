@@ -21,8 +21,14 @@
             </div>
             <div th:replace="~{fragments/converter(link='/convert')}"></div>
         </section>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-        <script type="text/javascript" th:src="@{/js/main.js}"></script>
+        <section class="album-section">
+            <div th:replace="~{fragments/album}"></div>
+        </section>
+        <div layout:fragment="scripts">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+            <script type="text/javascript" th:src="@{/js/main.js}"></script>
+            <script></script>
+        </div>
     </div>
 
 
