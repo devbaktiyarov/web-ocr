@@ -8,6 +8,8 @@ var imageList = document.querySelector("#image-list");
 var browseButton = document.querySelector("#browse-button");
 var dropArea = document.querySelector("#drop-area");
 
+var pageTitle = document.querySelector("#page-title");
+
 let imagesArray = [];
 let dataTransfer = new DataTransfer()
 
@@ -77,20 +79,17 @@ input.addEventListener("change", () => {
 function displayImages() {
     let images = ""
     imagesArray.forEach((image, index) => {
-        images += `<div class="">
-                    <img src="${URL.createObjectURL(image)}" class="img-fluid border mb-2" alt="image">
-                </div>`
+        images += `<img src="${URL.createObjectURL(image)}" class="img-fluid border" alt="image" style="height: 100px">
+                `
     })
-
-    if(screen.width )
-    dropArea.style.width="70%"
-    imageList.style.width="25%"
     output.innerHTML = images;
-    imageList.removeAttribute("hidden");
+    imageList.classList.remove('d-none');
+    // dropArea.style= "height:250px"
+
 }
 
 function showProgress() {
-    progressBars.forEach(p => p.classList.remove("d-none"));
+    progressBar.classList.remove('d-none');
 }
 
 

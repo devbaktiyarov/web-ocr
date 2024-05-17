@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +8,8 @@
 </head>
 <body style="background-color: #f5f5f5">
     <header th:insert="~{fragments/navigation}"></header>
-    <section layout:fragment="content" class="mt-3"></section>
-    <footer th:insert="~{fragments/footer}"></footer>
-    <div layout:fragment="scripts"></div>
+    <section layout:fragment="content"></section>
+    <div th:replace="~{fragments/footer}"></div>
+    <th:block layout:fragment="script"></th:block>
 </body>
 </html>
