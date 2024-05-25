@@ -8,21 +8,21 @@
                             <input id="file-input" name="files" type="file" class="form-control" accept="image/png, image/jpeg, image/jpg" multiple hidden  >                                     
                             <div class="img-view text-center">
                                 <img th:src="@{images/upload.png}" alt="">
-                                <p class="fs-5">Drag & Drop <br> or <span id="browse-button" class="text-primary" role="button">click </span>to upload image</p>
-                                <p class="fw-light">Upload .png .jpg .jpeg</p>
+                                <p class="fs-5"><span th:text="#{dragarea.drop}">Drag & Drop </span><br> <span th:text="#{dragarea.or}">or</span> <span id="browse-button" class="text-primary" role="button" th:text="#{dragarea.click}">click </span> <span th:text="#{dragarea.upload}">to upload image</span></p>
+                                <p class="fw-light" th:text="#{image.format}">Upload .png .jpg .jpeg</p>
                             </div>
                         </div>
-                        <div id="image-list" class="d-none">
+                        <div id="image-list" class="mt-1 d-none">
                             <div id="file-output" class="d-flex flex-row flex-nowrap justify-content-start"></div>
                         </div>
-                        <div class="input-group mt-2 mb-2">
-                            <label class="input-group-text" for="language">Choose language</label>
+                        <div class="input-group">
+                            <label class="input-group-text" for="language" th:text="#{choose.lang}">Choose language</label>
                             <select id="language" class="form-select" aria-label="Language Select" name="lang">
                                 <option value="kir" selected>Kyrgyz</option>
                                 <option value="eng">English</option>
                                 <option value="chi-sim">Chinese</option>
                             </select>
-                            <button id="submit-button" type="submit" class="col col-sm-3 btn btn-primary" disabled>Convert</button>
+                            <button id="submit-button" type="submit" class="col col-sm-3 btn btn-primary" disabled th:text="#{convert}">Convert</button>
                         </div>
                         
                         <div id="progress-status" class="progress d-none my-2">

@@ -1,6 +1,10 @@
 package com.devbaktiyarov.webocr.service;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +23,9 @@ public class PdfConvertServiceIpml implements PdfConvertService {
 
 
     private static final String FONT = "src/main/resources/static/fonts/Helvetica.ttf";
+    private static String dateFormat = "yyyy-MM-dd:hh:mm:ss";
+    private static String headerKey = "Content-Disposition";
+
 
     private Tesseract tesseract;
     
@@ -31,11 +38,18 @@ public class PdfConvertServiceIpml implements PdfConvertService {
             MultipartFile[] files,
             String language) {
 
-        tesseract.setLanguage(language);
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat(dateFormat);
+        String currentDateTime = dateFormatter.format(new Date());
+        String headerValue = "attachment; filename=web_ocr" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
 
+
+        tesseract.setLanguage(language);
         Document document = new Document(PageSize.A4);
         try {
             PdfWriter.getInstance(document, response.getOutputStream());
+            PdfWriter.getInstance(document, new FileOutputStream("files/pdf/" + "web_ocr" + currentDateTime + ".pdf"));
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }

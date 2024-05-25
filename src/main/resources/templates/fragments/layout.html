@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{css/layout.css}">
     <script defer th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </head>
-<body style="background-color: #f5f5f5">
+<body>
     <header th:insert="~{fragments/navigation}"></header>
     <section layout:fragment="content"></section>
     <div th:replace="~{fragments/footer}"></div>
     <th:block layout:fragment="script"></th:block>
+    <script th:src="@{/js/nav.js}" ></script>
 </body>
 </html>

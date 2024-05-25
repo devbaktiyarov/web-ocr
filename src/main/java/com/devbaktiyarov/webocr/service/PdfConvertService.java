@@ -7,3 +7,5 @@ import jakarta.servlet.http.HttpServletResponse;
 public interface PdfConvertService {
     void converImageToPdf(HttpServletResponse response, MultipartFile[] files, String language);
 }
+
+

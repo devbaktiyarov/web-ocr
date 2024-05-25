@@ -1,37 +1,35 @@
 package com.devbaktiyarov.webocr.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.devbaktiyarov.webocr.model.ImageFile;
+import com.devbaktiyarov.webocr.repository.FileRepository;
 import com.devbaktiyarov.webocr.service.PdfConvertService;
 import com.devbaktiyarov.webocr.service.TessOcrService;
 import com.devbaktiyarov.webocr.service.WordConverService;
 
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.springframework.web.bind.annotation.PostMapping;
-
 @Controller
 @RequestMapping("/")
-public class WebContoller {
+public class ConvertContoller {
 
     private final TessOcrService textConvertService;
     private final PdfConvertService pdfConvertService;
     private final WordConverService wordConvertService;
 
-    private String wordContentype = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-    private String dateFormat = "yyyy-MM-dd:hh:mm:ss";
-    private String headerKey = "Content-Disposition";
+    @Autowired
+    FileRepository repo;
 
-    public WebContoller(TessOcrService textConvertService, PdfConvertService pdfConvertService,
+    public ConvertContoller(TessOcrService textConvertService, PdfConvertService pdfConvertService,
             WordConverService wordConvertService) {
         this.textConvertService = textConvertService;
         this.pdfConvertService = pdfConvertService;
@@ -45,7 +43,8 @@ public class WebContoller {
 
     @GetMapping("/pick")
     public String getPickPage() {
-        return "index";
+        repo.save(new ImageFile(1, "Hello"));
+        return "main";
     }
 
     @PostMapping(path = "/convert", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
@@ -65,12 +64,6 @@ public class WebContoller {
     public void convertToPdf(HttpServletResponse response, 
             @RequestParam MultipartFile[] files, 
             @RequestParam String lang) {
-                
-        response.setContentType("application/pdf");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
-        String currentDateTime = dateFormatter.format(new Date());
-        String headerValue = "attachment; filename=pdf_ars" + currentDateTime + ".pdf";
-        response.setHeader(headerKey, headerValue);
         pdfConvertService.converImageToPdf(response, files, lang);  
     }
 
@@ -84,12 +77,6 @@ public class WebContoller {
     public void convertToWord(HttpServletResponse response, 
             @RequestParam MultipartFile[] files, 
             @RequestParam String lang ) {
-
-        response.setContentType(wordContentype);
-        DateFormat dateFormatter = new SimpleDateFormat(dateFormat);
-        String currentDateTime = dateFormatter.format(new Date());
-        String headerValue = "attachment; filename=web-ocr" + currentDateTime + ".docx";
-        response.setHeader(headerKey, headerValue);
         wordConvertService.converImageToWord(response, files, lang);  
     }
 

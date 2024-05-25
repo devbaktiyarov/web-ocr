@@ -1,6 +1,6 @@
-    <nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+    <nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark mb-3">
         <div class="container">
-          <a class="navbar-brand" th:href="@{/}">Navbar</a>
+          <a class="navbar-brand me-auto" th:href="@{/}">WebOCR</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -20,11 +20,26 @@
                   Drop
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><a class="dropdown-item" th:href="@{?lang=en}">Ru</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav">
+              <li>
+                <select id="locales" class="form-select form-select-sm text-white bg-dark" aria-label=".form-select-sm example" style="border: none;">
+                  <option value="en">en</option>
+                  <option value="ru" selected>ru</option>
+                </select>  
+              </li>
+              <li sec:authorize="isAuthenticated()">
+                <a th:href="@{/logout}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ffffff" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                  </svg>
+                </a>
               </li>
             </ul>
           </div>
@@ -36,4 +51,4 @@
             <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
           </svg>
         <span class="fs-5">Back</span>
-    </a>
+      </a>
