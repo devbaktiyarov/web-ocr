@@ -1,39 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"     
-            xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-            layout:decorate="~{/fragments/layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <title>Login</title>
 </head>
 <body>
-    <section layout:fragment="content">
-        <div class="container mt-4 min-vh-100">
-            <div class="row justify-content-center">
-                <div class="col-8 col-md-4">
-                    <img th:src="@{images/logo.png}" alt="" style="margin: 0 auto; width: 70px;">
-                    <h1 class="text-center">Please Log In</h1>
-                    <div class="mb-3" th:if="${param.error}">
-                        Invalid username and password.</div>
-                    <div class="mb-3" th:if="${param.logout}">
-                        You have been logged out.</div>
-                    <form th:action="@{/login}" method="post">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" name="username" placeholder="Username">
-                            <label for="floatingInput">Username</label>
-                        </div>
-                        <div class="form-floating">
-                            <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
-                            <label for="floatingPassword">Password</label>
-                        </div>
-                        
-                        <button type="submit" class="mt-3 w-100 btn btn-primary btn-lg">Log in</button>
-                    </form>
-                </div>
+    <header th:insert="~{fragments/navigation}"></header>    
+    <div class="container mt-4 min-vh-100">
+        <div class="row justify-content-center">
+            <div class="col-8 col-md-4">
+                <img th:src="@{images/logo.png}" alt="" style="margin: 0 auto; width: 70px;">
+                <h1 class="text-center">Please Log In</h1>
+                <div class="mb-3" th:if="${param.error}">
+                    Invalid username and password.</div>
+                <div class="mb-3" th:if="${param.logout}">
+                    You have been logged out.</div>
+                <form th:action="@{/login}" method="post">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" name="username" placeholder="Username">
+                        <label for="floatingInput">Username</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                    
+                    <button type="submit" class="mt-3 w-100 btn btn-primary btn-lg">Log in</button>
+                </form>
             </div>
         </div>
-        
-    </section>
+    </div>
+    <div th:replace="~{fragments/footer}"></div>
+
+
+    <script th:src="@{/js/nav.js}" ></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
