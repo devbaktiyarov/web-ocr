@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+/files
+/tessdata
+**.jar
 ### STS ###
 .apt_generated
 .classpath

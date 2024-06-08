@@ -94,3 +94,84 @@ function showProgress() {
 
 
 
+const languageNames = {
+    'en': {
+        
+        'ara': 'Arabic', 'aze': 'Azerbaijani', 'bel': 'Belarusian', 'ben': 'Bengali', 
+        'bul': 'Bulgarian', 'ces': 'Czech', 'chi_sim': 'Chinese - Simplified', 
+        'chi_tra': 'Chinese - Traditional', 'dan': 'Danish', 'eng': 'English', 
+        'equ': 'Math / equation detection module', 'est': 'Estonian', 'fas': 'Persian', 
+        'fin': 'Finnish', 'fra': 'French', 'gle': 'Irish', 'grc': 'Greek', 'hin': 'Hindi', 
+        'hrv': 'Croatian', 'hun': 'Hungarian', 'hye': 'Armenian', 'ind': 'Indonesian', 
+        'ita': 'Italian', 'jpn': 'Japanese', 'kat': 'Georgian', 'kaz': 'Kazakh', 
+        'kir': 'Kyrgyz', 'kor': 'Korean', 'lat': 'Latin', 'lav': 'Latvian', 'mon': 'Mongolian', 
+        'nld': 'Dutch', 'pol': 'Polish', 'por': 'Portuguese', 'rus': 'Russian', 'spa': 'Spanish', 
+        'syr': 'Syriac', 'tat': 'Tatar', 'tgk': 'Tajik', 'ukr': 'Ukrainian', 'uzb': 'Uzbek', 
+        'uzb_cyrl': 'Uzbek - Cyrilic'
+    },
+    'ru': {
+       
+        'ara': 'арабский', 'aze': 'азербайджанский', 'bel': 'белорусский', 'ben': 'бенгальский', 
+        'bul': 'болгарский', 'ces': 'чешский', 'chi_sim': 'китайский (упрощенный)', 
+        'chi_tra': 'китайский (традиционный)', 'dan': 'датский', 'eng': 'английский', 
+        'equ': 'модуль обнаружения математических/уравнений', 'est': 'эстонский', 'fas': 'персидский', 
+        'fin': 'финский', 'fra': 'французский', 'gle': 'ирландский', 'grc': 'греческий', 'hin': 'хинди', 
+        'hrv': 'хорватский', 'hun': 'венгерский', 'hye': 'армянский', 'ind': 'индонезийский', 
+        'ita': 'итальянский', 'jpn': 'японский', 'kat': 'грузинский', 'kaz': 'казахский', 
+        'kir': 'киргизский', 'kor': 'корейский', 'lat': 'латинский', 'lav': 'латышский', 'mon': 'монгольский', 
+        'nld': 'голландский', 'pol': 'польский', 'por': 'португальский', 'rus': 'русский', 'spa': 'испанский', 
+        'syr': 'сирийский', 'tat': 'татарский', 'tgk': 'таджикский', 'ukr': 'украинский', 'uzb': 'узбекский', 
+        'uzb_cyrl': 'узбекский - кириллица'
+    },
+    'kg': {
+        
+        'ara': 'арабча', 'aze': 'азербайжан', 'bel': 'беларусча', 'бен': 'бенгалча',
+        'bul': 'болгарча', 'ces': 'чех', 'chi_sim': 'кытайча (жөнөкөйлөштүрүлгөн)',
+        'chi_tra': 'кытайча (салттуу)', 'dan': 'даниялык', 'англ.': 'англисче',
+        'equ': 'математика/теңдемелерди аныктоо модулу', 'est': 'Эстония', 'fas': 'Перси',
+        'fin': 'Фин', 'fra': 'французча', 'gle': 'ирландча', 'grc': 'грекче', 'hin': 'хиндиче',
+        'hrv': 'Хорват', 'hun': 'Венгрия', 'hye': 'Армян', 'ind': 'Индонезия',
+        'ita': 'итальянча', 'jpn': 'жапонча', 'kat': 'грузинче', 'kaz': 'казакча',
+        'kir': 'кыргыз', 'kor': 'корей', 'лат': 'латын', 'lav': 'латвия', 'mon': 'монгол',
+        'nld': 'голландча', 'pol': 'полякча', 'por': 'португалча', 'rus': 'орусча', 'spa': 'испанча',
+        'syr': 'сириялык', 'тат': 'татар', 'tgk': 'тажик', 'ukr': 'украин', 'uzb': 'өзбек',
+        'uzb_cyrl': 'өзбек - кириллица'
+        }
+};
+
+
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+const lang = getQueryParam('lang') || 'ru';
+
+const localesSelect = document.getElementById('language');
+function populateLocales(language) {
+    // localesSelect.innerHTML = '';
+    const names = languageNames[language];
+    for (const [code, name] of Object.entries(names)) {
+        const option = document.createElement('option');
+        option.value = code;
+        option.textContent = name;
+        localesSelect.appendChild(option);
+    }
+}
+
+populateLocales(lang);
+
+const form = document.getElementById('uploadForm');
+
+const loading = document.getElementById('loading');
+            
+form.addEventListener('submit', function() {
+    loading.style.display = 'block';
+});
+
+
+
+
+
+
+

@@ -1,6 +1,7 @@
 package com.devbaktiyarov.webocr.controller;
 
-import org.springframework.context.annotation.PropertySource;
+import java.security.Principal;
+
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,21 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/")
-@PropertySource("classpath:messages.properties")
-@PropertySource("classpath:messages_ru.properties")
 public class ConvertContoller {
-
-
-    // @Value("${tesseract.lang.names}")
-    // private List<String> listOfLanguages;
-
-
-    // @Value("${tesseract.lang.codes}")
-    // private List<String> listOfLanguageCodes;
-
-    // @Value("${convert}")
-    // private String convert;
-    
 
     private final TessOcrService textConvertService;
     private final PdfConvertService pdfConvertService;
@@ -46,21 +33,8 @@ public class ConvertContoller {
         this.wordConvertService = wordConvertService;
     }
 
-    // @GetMapping("path")
-    // @ResponseBody
-    // public List<String> getMethodName() {
-    //     return listOfLanguages;
-    // }
-
-    // @GetMapping("con")
-    // @ResponseBody
-    // public String getMethodNamee(HttpServletResponse response) {
-    //     response.setCharacterEncoding("UTF-8");
-    //     return convert;
-    // }
     
     
-
     @GetMapping()
     public String getMainPage() {
         return "main";
@@ -95,8 +69,9 @@ public class ConvertContoller {
     @PostMapping("/convert-to-word")
     public void convertToWord(HttpServletResponse response, 
             @RequestParam MultipartFile[] files, 
-            @RequestParam String lang ) {
-        wordConvertService.converImageToWord(response, files, lang);  
+            @RequestParam String lang,
+            Principal principal) {      
+        wordConvertService.converImageToWord(response, files, lang, principal);  
     }
 
 }

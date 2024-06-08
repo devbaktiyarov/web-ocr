@@ -1,11 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <title>Login</title>
 </head>
 <body>
-    
+    <header th:insert="~{fragments/navigation}"></header>    
+    <div class="container mt-5 min-vh-100">
+        <div class="row justify-content-center">
+            <div class="col-8 col-md-4">
+                <h2 class="mb-4" th:text="#{signup.title}"></h2>
+                <form th:action="@{/register}" method="post">
+                    <div class="mb-3">
+                        <label for="email" class="form-label" th:text="#{login.email}">Email address</label>
+                        <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" required>
+                        <div id="emailHelp" class="form-text" th:text="#{signup.message}">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label" th:text="#{login.password}">Password</label>
+                        <input type="password" name="password" class="form-control" id="password" required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>    
+    <div th:replace="~{fragments/footer}"></div>
+
+
+    <script th:src="@{/js/nav.js}" ></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

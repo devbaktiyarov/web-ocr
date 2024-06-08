@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-9 rounded" style="background-color: #FFF; padding: 15px;">
-                    <form class="form-inline" th:action="${link}"  method="post" enctype="multipart/form-data">
+                    <form  id="uploadForm" class="form-inline" th:action="${link}"  method="post" enctype="multipart/form-data">
                         <div id="drop-area" class="input-group rounded">
                             <input id="file-input" name="files" type="file" class="form-control" accept="image/png, image/jpeg, image/jpg" multiple hidden  >                                     
                             <div class="img-view text-center">
@@ -16,13 +16,10 @@
                             <div id="file-output" class="d-flex flex-row flex-nowrap justify-content-start"></div>
                         </div>
                         <div class="input-group">
-                            <label class="input-group-text" for="language" th:text="#{choose.lang}">Choose language</label>
-                            <select id="language" class="form-select" aria-label="Language Select" name="lang">
-                                <option value="kir" selected>Kyrgyz</option>
-                                <option value="eng">English</option>
-                                <option value="chi-sim">Chinese</option>
+                            <select id="language" class="form-select col-sm-6" aria-label="Language Select" name="lang">
+                                <option disabled selected th:text="#{choose.lang}"></option>
                             </select>
-                            <button id="submit-button" type="submit" class="col col-sm-3 btn btn-primary" disabled th:text="#{convert}">Convert</button>
+                            <button id="submit-button" type="submit" class="col-sm-6 btn btn-primary" disabled th:text="#{convert}">Convert</button>
                         </div>
                         
                         <div id="progress-status" class="progress d-none my-2">
@@ -32,6 +29,12 @@
                 </div>
                 
             </div>
+        </div>
+        <div id="loading">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p th:text="#{loading.process}">Processing your request, please wait...</p>
         </div>
     </div>
 </div>

@@ -26,14 +26,21 @@
                 </ul>
               </li>
             </ul>
-            <ul class="nav navbar-nav">
-              <li>
-                <select id="locales" class="form-select form-select-sm text-white bg-dark" aria-label=".form-select-sm example" style="border: none;">
+            <ul class="navbar-nav">
+              <li class="nav-item px-2">
+                <select id="locales" class="form-select text-white bg-dark" aria-label=".form-select-sm example" style="border: none;">
                   <option value="en">en</option>
-                  <option value="ru" selected>ru</option>
+                  <option value="kg">kg</option>
+                  <option selected value="ru">ru</option>
                 </select>  
               </li>
-              <li sec:authorize="isAuthenticated()">
+              <li class="nav-item px-2" sec:authorize="!isAuthenticated()">                
+                <a class="btn btn-primary" th:href="@{/login}" role="button" th:text="#{login}"></a>
+              </li>
+              <li class="nav-item px-2" sec:authorize="!isAuthenticated()">                
+                <a class="btn btn-primary" th:href="@{/sign-up}" role="button" th:text="#{signup}"></a>
+              </li>
+              <li class="nav-item px-4" sec:authorize="isAuthenticated()">
                 <a th:href="@{/logout}">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ffffff" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
