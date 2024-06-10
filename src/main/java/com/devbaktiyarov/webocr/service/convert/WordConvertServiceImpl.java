@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.devbaktiyarov.webocr.entity.UserProfile;
-import com.devbaktiyarov.webocr.model.ImageFile;
+import com.devbaktiyarov.webocr.entity.ImageFile;
 import com.devbaktiyarov.webocr.repository.UserRepository;
 import com.devbaktiyarov.webocr.util.TessUtil;
 
@@ -51,12 +51,6 @@ public class WordConvertServiceImpl implements WordConverService {
     @Override
     public void converImageToWord(HttpServletResponse response, MultipartFile[] files, 
                     String language, Principal principal) {
-
-        response.setContentType(WORDCONTENTTYPE);
-        DateFormat dateFormatter = new SimpleDateFormat(DATEFORMAT);
-        String currentDateTime = dateFormatter.format(new Date());
-        String headerValue = "attachment; filename=web_ocr" + currentDateTime + ".docx";
-        response.setHeader(HEADERKEY, headerValue);
         tesseract.setLanguage(language);
         XWPFDocument document = new XWPFDocument();
         for (MultipartFile file : files) {
@@ -87,17 +81,21 @@ public class WordConvertServiceImpl implements WordConverService {
             }
         }
         try {
-            String fileName = "web_ocr" + currentDateTime + ".docx";
-            
+            response.setContentType(WORDCONTENTTYPE);
+            DateFormat dateFormatter = new SimpleDateFormat(DATEFORMAT);
+            String currentDateTime = dateFormatter.format(new Date());
+            String headerValue = "attachment; filename=" + currentDateTime + ".docx";
+            response.setHeader(HEADERKEY, headerValue);
             if(principal != null) { 
                 Optional<UserProfile> user = userRepository.findByEmail(principal.getName());
                 if(user.isPresent()) {
+                    String fileName = user.get().getUserId() + "_" + currentDateTime + ".docx";
                     ImageFile imageFile = new ImageFile();
                     imageFile.setName(fileName);
                     imageFile.setType("word");
                     user.get().getImageFileList().add(imageFile);
                     userRepository.save(user.get());
-                    document.write(new FileOutputStream("files/word/" + "web_ocr" + currentDateTime + ".docx"));
+                    document.write(new FileOutputStream(wordPath + fileName));
                 }
             }
             document.write(response.getOutputStream());

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.devbaktiyarov.webocr.entity.UserProfile;
 import com.devbaktiyarov.webocr.service.security.RegistrationService;
@@ -34,11 +35,13 @@ public class SecurityContoller {
         return "registration";
     }
 
-
-    
-
     @PostMapping("/register")
-    public String registerUser(@RequestParam String email, @RequestParam String password) {
+    public String registerUser(@RequestParam String email, @RequestParam String password, RedirectAttributes redirectAttributes) {
+        boolean err = registrationService.validateUser(email);
+        if (err) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Invalid email");
+            return "redirect:/sign-up";
+        }
         UserProfile user = new UserProfile();
         user.setEmail(email);
         user.setPassword(password);

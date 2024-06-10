@@ -166,7 +166,13 @@ const form = document.getElementById('uploadForm');
 const loading = document.getElementById('loading');
             
 form.addEventListener('submit', function() {
-    loading.style.display = 'block';
+    if(localStorage.getItem('l') == 'ru') {
+        alert('Не обновялйте страницу')
+    } else if(localStorage.getItem('l') == 'kg') {
+        alert('Баракты жаңыртпаңыз')
+    } else {
+        alert("Don't refresh the page")
+    }  
 });
 
 

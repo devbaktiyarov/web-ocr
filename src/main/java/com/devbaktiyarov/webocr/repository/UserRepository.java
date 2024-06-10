@@ -10,4 +10,5 @@ import com.devbaktiyarov.webocr.entity.UserProfile;
 @Repository
 public interface UserRepository extends JpaRepository<UserProfile, Long>{
     Optional<UserProfile> findByEmail(String email);
+    // boolean existByEmail(String email);
 }

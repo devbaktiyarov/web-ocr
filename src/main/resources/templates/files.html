@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <title>Result</title>
+</head>
+<body>
+    <header th:insert="~{fragments/navigation}"></header>  
+    <div class="container mt-4" style="min-height: 100vh;">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="file: ${files}">
+                <td th:text="${file.id}"></td>
+                <td> <a th:href="@{'/download?file=' + ${file.name}}" th:text="${file.name}">element</a></td>
+                <td th:text="${file.type}"></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <div th:replace="~{fragments/footer}"></div>
+
+    <script th:src="@{/js/nav.js}" ></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+  </body>
+</html>

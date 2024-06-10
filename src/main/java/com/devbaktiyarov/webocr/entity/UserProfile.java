@@ -8,9 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.devbaktiyarov.webocr.model.ImageFile;
-
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +26,7 @@ public class UserProfile implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
     
+    @Column(unique=true)
     private String email;
     private String password;
     private String role;

@@ -29,7 +29,7 @@ public class WebSecurityConfig {
 		http
 			.csrf((csrf) -> csrf.disable())
 			.authorizeHttpRequests((requests) -> requests
-				// .requestMatchers("/pdf-converter").authenticated()
+				.requestMatchers("/files").authenticated()
 				// .requestMatchers("/word-converter").hasRole("ADMIN")
 				.anyRequest().permitAll()
 			)

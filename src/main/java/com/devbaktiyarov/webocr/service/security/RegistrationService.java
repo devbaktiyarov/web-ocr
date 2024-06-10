@@ -24,4 +24,8 @@ public class RegistrationService {
         userRepository.save(user);
     }
 
+    public boolean validateUser(String email) {
+        return userRepository.findByEmail(email).isPresent();
+    }
+
 }

@@ -7,7 +7,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item px-2">
-                <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
+                <a class="nav-link" aria-current="page" th:href="@{/}">Home</a>
               </li>
               <li class="nav-item px-2">
                 <a class="nav-link" th:href="@{/pdf-converter}">PDF</a>
@@ -15,6 +15,10 @@
               <li class="nav-item px-2">
                 <a class="nav-link" th:href="@{/word-converter}">Word</a>
               </li>
+              <li class="nav-item px-2" sec:authorize="isAuthenticated()">
+                <a class="nav-link" th:href="@{/files}">Files</a>
+              </li>
+              
               <li class="nav-item dropdown px-2">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Drop
