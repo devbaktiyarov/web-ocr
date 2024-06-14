@@ -15,4 +15,7 @@ public interface FileRepository extends JpaRepository<ImageFile, Integer>{
 
     @Query(value ="SELECT * FROM  image_file WHERE user_id = ?1", nativeQuery=true)
     List<ImageFile> findAllByUserId(long id);
+
+    @Query(value ="DELETE FROM  image_file WHERE name = ?1", nativeQuery=true)
+    void deleteByName(String name);
 }

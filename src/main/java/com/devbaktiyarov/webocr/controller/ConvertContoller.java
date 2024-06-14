@@ -56,8 +56,8 @@ public class ConvertContoller {
     @PostMapping("/convert-to-pdf")
     public void convertToPdf(HttpServletResponse response, 
             @RequestParam MultipartFile[] files, 
-            @RequestParam String lang) {
-        pdfConvertService.converImageToPdf(response, files, lang);  
+            @RequestParam String lang, Principal principal) {
+        pdfConvertService.converImageToPdf(response, files, lang, principal);  
     }
 
 

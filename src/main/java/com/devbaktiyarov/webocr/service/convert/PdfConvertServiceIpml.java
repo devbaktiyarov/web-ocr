@@ -2,13 +2,19 @@ package com.devbaktiyarov.webocr.service.convert;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.devbaktiyarov.webocr.entity.ImageFile;
+import com.devbaktiyarov.webocr.entity.UserProfile;
+import com.devbaktiyarov.webocr.repository.UserRepository;
 import com.devbaktiyarov.webocr.util.TessUtil;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -31,22 +37,27 @@ public class PdfConvertServiceIpml implements PdfConvertService {
     private static final String DATEFORMAT = "yyyy-MM-dd:hh:mm:ss";
     private static final String HEADERKEY = "Content-Disposition";
 
+    @Value("${path.pdf}")
+    private String path;
 
     private Tesseract tesseract;
+    private UserRepository userRepository;
     
-    public PdfConvertServiceIpml(Tesseract tesseract) {
+
+    public PdfConvertServiceIpml(Tesseract tesseract, UserRepository userRepository) {
         this.tesseract = tesseract;
+        this.userRepository = userRepository;
     }
 
     @Override
     public void converImageToPdf(HttpServletResponse response,
             MultipartFile[] files,
-            String language) {
+            String language, Principal principal) {
 
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat(DATEFORMAT);
         String currentDateTime = dateFormatter.format(new Date());
-        String headerValue = "attachment; filename=web_ocr" + currentDateTime + ".pdf";
+        String headerValue = "attachment; filename=" + currentDateTime + ".pdf";
         response.setHeader(HEADERKEY, headerValue);
 
 
@@ -54,8 +65,7 @@ public class PdfConvertServiceIpml implements PdfConvertService {
         try (Document document = new Document(PageSize.A4)) {
             
             PdfWriter.getInstance(document, response.getOutputStream());
-            PdfWriter.getInstance(document, new FileOutputStream("files/pdf/" + "web_ocr" + currentDateTime + ".pdf"));
-             
+            
             document.open();
             Font fontParagraph = FontFactory.getFont(FONT, BaseFont.IDENTITY_H, true);
             fontParagraph.setSize(10);
@@ -73,6 +83,21 @@ public class PdfConvertServiceIpml implements PdfConvertService {
                     e.printStackTrace();
                 }
             }
+
+            if(principal != null) { 
+                Optional<UserProfile> user = userRepository.findByEmail(principal.getName());
+                if(user.isPresent()) {
+                    String fileName = user.get().getUserId() + "_" + currentDateTime + ".pdf";
+                    ImageFile imageFile = new ImageFile();
+                    imageFile.setName(fileName);
+                    imageFile.setType("pdf");
+                    user.get().getImageFileList().add(imageFile);
+                    userRepository.save(user.get());
+
+                    PdfWriter.getInstance(document, new FileOutputStream(path + fileName));
+                }
+            }
+            document.close();
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }

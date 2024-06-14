@@ -23,3 +23,14 @@ navLinks.forEach(link => {
         link.classList.add('active');
     }
 });
+
+window.addEventListener('beforeunload', function() {
+    localStorage.setItem('wasClosed', 'true');
+});
+
+window.addEventListener('load', function() {
+    if (localStorage.getItem('wasClosed') === 'true') {
+        localStorage.clear();
+        localStorage.removeItem('wasClosed');
+    }
+});

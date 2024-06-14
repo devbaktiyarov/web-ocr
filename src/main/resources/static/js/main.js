@@ -10,6 +10,8 @@ var dropArea = document.querySelector("#drop-area");
 
 var pageTitle = document.querySelector("#page-title");
 
+var localesSelect = document.getElementById('language');
+
 let imagesArray = [];
 let dataTransfer = new DataTransfer()
 
@@ -45,9 +47,6 @@ dropArea.addEventListener("drop", (e) => {
     dropArea.classList.remove("active");
     displayImages();  
 
-    if(imagesArray.length != 0) {
-        submitButton.disabled = false;
-    }
     imagesArray = []; 
 });
 
@@ -147,7 +146,7 @@ function getQueryParam(param) {
 
 const lang = getQueryParam('lang') || 'ru';
 
-const localesSelect = document.getElementById('language');
+
 function populateLocales(language) {
     // localesSelect.innerHTML = '';
     const names = languageNames[language];

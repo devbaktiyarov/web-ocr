@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.devbaktiyarov.webocr.entity.ImageFile;
@@ -65,6 +64,19 @@ public class FileController {
                 .headers(headers)
                 .contentLength(file.length())
                 .body(resource);
+    }
+
+    @GetMapping("/delete")
+    public String deleteFile(@RequestParam(name = "file_id") Integer id) {
+        File directory = new File("");
+        String filename = fileRepository.findById(id).get().getName();
+        File file = new File(directory.getAbsolutePath() + wordPath + filename);    
+        
+        if(file.delete()) {
+            fileRepository.deleteById(id);
+        }
+        
+        return "redirect:/files";
     }
 
 
