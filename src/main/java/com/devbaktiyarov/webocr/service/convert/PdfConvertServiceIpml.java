@@ -53,19 +53,29 @@ public class PdfConvertServiceIpml implements PdfConvertService {
     public void converImageToPdf(HttpServletResponse response,
             MultipartFile[] files,
             String language, Principal principal) {
-
-        response.setContentType("application/pdf");
-        DateFormat dateFormatter = new SimpleDateFormat(DATEFORMAT);
-        String currentDateTime = dateFormatter.format(new Date());
-        String headerValue = "attachment; filename=" + currentDateTime + ".pdf";
-        response.setHeader(HEADERKEY, headerValue);
-
-
+        
         tesseract.setLanguage(language);
         try (Document document = new Document(PageSize.A4)) {
+            response.setContentType("application/pdf");
+            DateFormat dateFormatter = new SimpleDateFormat(DATEFORMAT);
+            String currentDateTime = dateFormatter.format(new Date());
+            String headerValue = "attachment; filename=" + currentDateTime + ".pdf";
+            response.setHeader(HEADERKEY, headerValue);
             
-            PdfWriter.getInstance(document, response.getOutputStream());
-            
+            PdfWriter.getInstance(document,  response.getOutputStream());
+            if(principal != null) { 
+                Optional<UserProfile> user = userRepository.findByEmail(principal.getName());
+                if(user.isPresent()) {
+                    String fileName = user.get().getUserId() + "_" + currentDateTime + ".pdf";
+                    ImageFile imageFile = new ImageFile();
+                    imageFile.setName(fileName);
+                    imageFile.setType("pdf");
+                    user.get().getImageFileList().add(imageFile);
+                    userRepository.save(user.get());
+    
+                    PdfWriter.getInstance(document, new FileOutputStream(path + fileName));
+                }
+            }
             document.open();
             Font fontParagraph = FontFactory.getFont(FONT, BaseFont.IDENTITY_H, true);
             fontParagraph.setSize(10);
@@ -83,24 +93,12 @@ public class PdfConvertServiceIpml implements PdfConvertService {
                     e.printStackTrace();
                 }
             }
-
-            if(principal != null) { 
-                Optional<UserProfile> user = userRepository.findByEmail(principal.getName());
-                if(user.isPresent()) {
-                    String fileName = user.get().getUserId() + "_" + currentDateTime + ".pdf";
-                    ImageFile imageFile = new ImageFile();
-                    imageFile.setName(fileName);
-                    imageFile.setType("pdf");
-                    user.get().getImageFileList().add(imageFile);
-                    userRepository.save(user.get());
-
-                    PdfWriter.getInstance(document, new FileOutputStream(path + fileName));
-                }
-            }
-            document.close();
-        } catch (DocumentException | IOException e) {
-            e.printStackTrace();
         }
+        catch (DocumentException | IOException e1) {
+            e1.printStackTrace();
+        }
+        
+        
     }
     
 }

@@ -15,6 +15,8 @@ var localesSelect = document.getElementById('language');
 let imagesArray = [];
 let dataTransfer = new DataTransfer()
 
+
+
 browseButton.onclick = () => {
     input.click();
 };
@@ -57,6 +59,8 @@ function uploadFiles(files) {
 
     input.files = dataTransfer.files
     console.log(input.files)
+    submitButton.disabled = false;
+    
 }
 
 
@@ -126,7 +130,7 @@ const languageNames = {
         
         'ara': 'арабча', 'aze': 'азербайжан', 'bel': 'беларусча', 'бен': 'бенгалча',
         'bul': 'болгарча', 'ces': 'чех', 'chi_sim': 'кытайча (жөнөкөйлөштүрүлгөн)',
-        'chi_tra': 'кытайча (салттуу)', 'dan': 'даниялык', 'англ.': 'англисче',
+        'chi_tra': 'кытайча (салттуу)', 'dan': 'даниялык', 'eng.': 'англисче',
         'equ': 'математика/теңдемелерди аныктоо модулу', 'est': 'Эстония', 'fas': 'Перси',
         'fin': 'Фин', 'fra': 'французча', 'gle': 'ирландча', 'grc': 'грекче', 'hin': 'хиндиче',
         'hrv': 'Хорват', 'hun': 'Венгрия', 'hye': 'Армян', 'ind': 'Индонезия',
@@ -163,7 +167,9 @@ populateLocales(lang);
 const form = document.getElementById('uploadForm');
 
 const loading = document.getElementById('loading');
-            
+
+localStorage.setItem('l') == 'ru'
+
 form.addEventListener('submit', function() {
     if(localStorage.getItem('l') == 'ru') {
         alert('Не обновялйте страницу')

@@ -50,7 +50,7 @@ public class FileController {
     @GetMapping("/download")
     public ResponseEntity<Resource> downloadFile(@RequestParam(name = "file") String filename) throws IOException {
         File directory = new File("");
-        File file = new File(directory.getAbsolutePath() + wordPath + filename);
+        File file = new File(directory.getAbsolutePath() + "/" + wordPath + filename);
         if (!file.exists()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     var locales = document.getElementById('locales');
-
+    locales.value = "ru";
     locales.addEventListener('change', function() {
         var selectedOption = locales.value;
         if (selectedOption !== '') {

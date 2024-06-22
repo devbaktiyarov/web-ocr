@@ -20,8 +20,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.devbaktiyarov.webocr.entity.UserProfile;
 import com.devbaktiyarov.webocr.entity.ImageFile;
+import com.devbaktiyarov.webocr.entity.UserProfile;
 import com.devbaktiyarov.webocr.repository.UserRepository;
 import com.devbaktiyarov.webocr.util.TessUtil;
 
@@ -87,6 +87,7 @@ public class WordConvertServiceImpl implements WordConverService {
             String headerValue = "attachment; filename=" + currentDateTime + ".docx";
             response.setHeader(HEADERKEY, headerValue);
             if(principal != null) { 
+                System.out.println("Principal found");
                 Optional<UserProfile> user = userRepository.findByEmail(principal.getName());
                 if(user.isPresent()) {
                     String fileName = user.get().getUserId() + "_" + currentDateTime + ".docx";

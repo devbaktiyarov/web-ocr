@@ -73,6 +73,5 @@ public class ConvertContoller {
             Principal principal) {      
         wordConvertService.converImageToWord(response, files, lang, principal);  
     }
-
 }
     
