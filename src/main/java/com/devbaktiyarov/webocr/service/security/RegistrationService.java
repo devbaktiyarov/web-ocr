@@ -1,5 +1,7 @@
 package com.devbaktiyarov.webocr.service.security;
 
+import java.util.Optional;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,24 @@ public class RegistrationService {
 
     public boolean validateUser(String email) {
         return userRepository.findByEmail(email).isPresent();
+    }
+
+    
+
+
+    public boolean verify(String verificationCode) {
+        Optional<UserProfile> user = userRepository.findByVerificationCode(verificationCode);
+
+        if (user.isEmpty() || user.get().isEnabled()) {
+            return false;
+        } else {
+            user.get().setVerificationCode(null);
+            user.get().setEnabled(true);
+            userRepository.save(user.get());
+
+            return true;
+        }
+
     }
 
 }

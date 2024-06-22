@@ -30,6 +30,8 @@ public class UserProfile implements UserDetails {
     private String email;
     private String password;
     private String role;
+    private boolean isEnabled;
+    private String verificationCode;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "userId")
@@ -38,12 +40,16 @@ public class UserProfile implements UserDetails {
     public UserProfile() {
     }
 
-    public UserProfile(String email, List<ImageFile> imageFileList, String password, String role, long userId) {
+
+
+    public UserProfile(String email, List<ImageFile> imageFileList, boolean isEnabled, String password, String role, long userId, String verificationCode) {
         this.email = email;
         this.imageFileList = imageFileList;
+        this.isEnabled = isEnabled;
         this.password = password;
         this.role = role;
         this.userId = userId;
+        this.verificationCode = verificationCode;
     }
 
     @Override
@@ -61,6 +67,8 @@ public class UserProfile implements UserDetails {
         return list;
 
     }
+
+    
 
     public List<ImageFile> getImageFileList() {
         return imageFileList;
@@ -101,6 +109,25 @@ public class UserProfile implements UserDetails {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+
+
 
 
     
