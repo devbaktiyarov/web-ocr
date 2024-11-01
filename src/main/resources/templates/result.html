@@ -14,7 +14,7 @@
         <div class="card mb-3" th:each="image : ${images}">    
             <div class="row justify-content-center no-gutters">
                 <div class="col-md-3 align-self-center">
-                    <img th:src="${image.photo}" class="card-img rounded" alt="..." style="max-height: 200px;">
+                    <img th:src="${image.photo}" class="card-img rounded" alt="..." style="max-height: 200px;   overflow-y:auto;">
                 </div>
                 <div class="col-md-7">
                     <div class="card-body">

@@ -41,7 +41,7 @@ public class SecurityContoller {
     }
 
     @PostMapping("/register")
-    public String registerUser(@RequestParam String email, @RequestParam String password, RedirectAttributes redirectAttributes) {
+    public String registerUser(@RequestParam String email, @RequestParam String password, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         boolean err = registrationService.validateUser(email);
         if (err) {
             redirectAttributes.addFlashAttribute("errorMessage", "Invalid email");
@@ -53,7 +53,7 @@ public class SecurityContoller {
         user.setEnabled(false);
         SecureRandom secureRandom = new SecureRandom();
         user.setVerificationCode(String.valueOf(secureRandom.nextInt(bound)));
-        registrationService.register(user);
+        registrationService.register(user, getSiteURL(request));
         return "redirect:/";
     }
 
@@ -71,6 +71,11 @@ public class SecurityContoller {
     public String getMethodName(HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         return principal.getName();
+    }
+
+    private String getSiteURL(HttpServletRequest request) {
+        String siteURL = request.getRequestURL().toString();
+        return siteURL.replace(request.getServletPath(), "");
     }
     
     
